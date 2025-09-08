@@ -1004,17 +1004,16 @@ h6 {
 }
 
 .we-work-step-card {
-  background: url(../img/how-works2.png);
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 8px;
+  background: linear-gradient(135deg, #f0dbdb 0%, #e8c5c5 50%, #deb3b3 100%);
+  border-radius: 20px;
   height: 616px;
   width: 616px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(200, 15, 15, 0.1);
 }
 
 .we-work-step-card::before {
@@ -1024,21 +1023,23 @@ h6 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  background: radial-gradient(circle at 30% 30%, rgba(200, 15, 15, 0.05) 0%, transparent 50%);
+  border-radius: 20px;
   z-index: 1;
 }
 
 .upload-box-add {
   width: 336px;
   height: 250px;
-  border-radius: 18.24px;
+  border-radius: 18px;
   background-color: var(--color-white);
   position: relative;
   z-index: 2;
   animation: slideInFromTop 1.2s ease-out forwards;
   opacity: 0;
   transform: translateY(-30px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  border: 2px solid rgba(200, 15, 15, 0.08);
 }
 
 @keyframes slideInFromTop {
@@ -1060,35 +1061,33 @@ h6 {
   position: absolute;
   content: "";
   background: url(../img/file-up.png);
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   top: 45%;
   left: 50%;
   background-repeat: no-repeat;
-  animation: dynamicHandMovement 3s ease-in-out infinite;
+  background-size: contain;
+  animation: enhancedHandMovement 2.5s ease-in-out infinite;
   transform: translate(-50%, -50%);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
-@keyframes dynamicHandMovement {
+@keyframes enhancedHandMovement {
   0% {
-    transform: translate(-50%, -50%) translateY(0px) translateX(0px) rotate(0deg);
-    opacity: 0.8;
+    transform: translate(-50%, -50%) translateY(0px) scale(1);
+    opacity: 0.7;
   }
-  25% {
-    transform: translate(-50%, -50%) translateY(-20px) translateX(-10px) rotate(-5deg);
+  30% {
+    transform: translate(-50%, -50%) translateY(-15px) scale(1.1);
     opacity: 1;
   }
-  50% {
-    transform: translate(-50%, -50%) translateY(-30px) translateX(15px) rotate(3deg);
+  60% {
+    transform: translate(-50%, -50%) translateY(-25px) scale(1.05);
     opacity: 0.9;
   }
-  75% {
-    transform: translate(-50%, -50%) translateY(-15px) translateX(-5px) rotate(-2deg);
-    opacity: 1;
-  }
   100% {
-    transform: translate(-50%, -50%) translateY(0px) translateX(0px) rotate(0deg);
-    opacity: 0.8;
+    transform: translate(-50%, -50%) translateY(0px) scale(1);
+    opacity: 0.7;
   }
 }
 
@@ -1149,6 +1148,18 @@ h6 {
   padding: 0.94rem 1.5rem;
   display: flex;
   align-items: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.uplode-text:hover {
+  background-color: rgba(200, 15, 15, 0.03);
+  transform: translateX(5px);
+}
+
+.uplode-text:hover i {
+  color: var(--color-primary-button);
+  transform: scale(1.1);
 }
 
 .work-align-change {
