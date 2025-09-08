@@ -231,6 +231,9 @@
                                                 Drop your design here<br>
                                                 <small>or click to browse</small>
                                             </div>
+                                            <div class="upload-progress">
+                                                <div class="upload-progress-bar"></div>
+                                            </div>
                                         </div>
                                         <div class="floating-files">
                                             <i class="fa-solid fa-image" style="color: var(--color-primary-button);"></i>
@@ -286,6 +289,9 @@
                                                 <i class="fa-solid fa-shopping-cart"></i>
                                                 Place Order
                                             </button>
+                                            <div class="shipping-status">
+                                                Ready to Ship!
+                                            </div>
                                         </div>
                                     </div>
 
@@ -483,7 +489,6 @@
                 const steps = document.querySelectorAll(".we-work-step");
                 const contents = document.querySelectorAll(".we-work-content");
                 const demoSteps = document.querySelectorAll("[class*='demo-step-']");
-                const progressDots = document.querySelectorAll(".progress-dot");
 
                 // Initialize first step
                 if (titles.length > 0 && steps.length > 0 && contents.length > 0) {
@@ -492,47 +497,38 @@
                     contents[0].classList.add("active");
                 }
 
-                // Auto-rotate demo steps for step 1
-                let currentDemoStep = 1;
-                let demoInterval;
+                // Option cycling for step 2
+                let optionCycleInterval;
 
-                function startDemoRotation() {
-                    if (demoInterval) clearInterval(demoInterval);
+                function startOptionCycling() {
+                    if (optionCycleInterval) clearInterval(optionCycleInterval);
                     
-                    demoInterval = setInterval(() => {
-                        // Hide current demo step
-                        const currentDemo = document.querySelector(`.demo-step-${currentDemoStep}`);
-                        if (currentDemo) {
-                            currentDemo.classList.remove("active");
-                            currentDemo.classList.add("inactive");
-                        }
-
-                        // Update progress dots
-                        progressDots.forEach(dot => dot.classList.remove("active"));
+                    const customOptions = document.querySelectorAll('.custom-option');
+                    let currentOption = 0;
+                    
+                    optionCycleInterval = setInterval(() => {
+                        // Remove active from all options
+                        customOptions.forEach(option => option.classList.remove('active'));
                         
-                        // Move to next step
-                        currentDemoStep = currentDemoStep === 3 ? 1 : currentDemoStep + 1;
+                        // Add active to current option
+                        if (customOptions[currentOption]) {
+                            customOptions[currentOption].classList.add('active');
+                        }
                         
-                        // Show new demo step
-                        const nextDemo = document.querySelector(`.demo-step-${currentDemoStep}`);
-                        if (nextDemo) {
-                            nextDemo.classList.remove("inactive");
-                            nextDemo.classList.add("active");
-                        }
-
-                        // Update progress dot
-                        const activeDot = document.querySelector(`.progress-dot[data-step="${currentDemoStep}"]`);
-                        if (activeDot) {
-                            activeDot.classList.add("active");
-                        }
-                    }, 4000);
+                        // Move to next option
+                        currentOption = (currentOption + 1) % customOptions.length;
+                    }, 1500);
                 }
 
-                function stopDemoRotation() {
-                    if (demoInterval) {
-                        clearInterval(demoInterval);
-                        demoInterval = null;
+                function stopOptionCycling() {
+                    if (optionCycleInterval) {
+                        clearInterval(optionCycleInterval);
+                        optionCycleInterval = null;
                     }
+                    // Remove active from all options
+                    document.querySelectorAll('.custom-option').forEach(option => 
+                        option.classList.remove('active')
+                    );
                 }
 
                 // Handle step clicks
@@ -562,39 +558,16 @@
                                 targetDemo.classList.add("active");
                             }
 
-                            // Update progress dots
-                            progressDots.forEach(dot => dot.classList.remove("active"));
-                            const activeDot = document.querySelector(`.progress-dot[data-step="${index + 1}"]`);
-                            if (activeDot) {
-                                activeDot.classList.add("active");
-                            }
-
-                            // Update demo step tracking
-                            currentDemoStep = index + 1;
-
-                            // Start auto-rotation only for first step
-                            if (index === 0) {
-                                startDemoRotation();
+                            // Handle animations based on step
+                            if (index === 1) { // Step 2 - Customize
+                                stopOptionCycling();
+                                setTimeout(startOptionCycling, 500); // Start after transition
                             } else {
-                                stopDemoRotation();
+                                stopOptionCycling();
                             }
                         }
                     });
                 });
-
-                // Start with auto-rotation since first step is active
-                startDemoRotation();
-
-                // Handle hover to pause auto-rotation
-                const workflowDemo = document.querySelector('.workflow-demo');
-                if (workflowDemo) {
-                    workflowDemo.addEventListener('mouseenter', stopDemoRotation);
-                    workflowDemo.addEventListener('mouseleave', () => {
-                        if (titles[0].classList.contains('active')) {
-                            startDemoRotation();
-                        }
-                    });
-                }
             });
         </script>
     </body>
