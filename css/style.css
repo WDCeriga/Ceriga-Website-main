@@ -1005,7 +1005,7 @@ h6 {
 
 .we-work-step-card {
   background: url(../img/how-works2.png);
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 8px;
@@ -1024,7 +1024,7 @@ h6 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(240, 219, 219, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   z-index: 1;
 }
@@ -1065,16 +1065,30 @@ h6 {
   top: 45%;
   left: 50%;
   background-repeat: no-repeat;
-  animation: floatingHand 2s ease-in-out infinite;
+  animation: dynamicHandMovement 3s ease-in-out infinite;
   transform: translate(-50%, -50%);
 }
 
-@keyframes floatingHand {
-  0%, 100% {
-    transform: translate(-50%, -50%) translateY(0px);
+@keyframes dynamicHandMovement {
+  0% {
+    transform: translate(-50%, -50%) translateY(0px) translateX(0px) rotate(0deg);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translate(-50%, -50%) translateY(-20px) translateX(-10px) rotate(-5deg);
+    opacity: 1;
   }
   50% {
-    transform: translate(-50%, -50%) translateY(-10px);
+    transform: translate(-50%, -50%) translateY(-30px) translateX(15px) rotate(3deg);
+    opacity: 0.9;
+  }
+  75% {
+    transform: translate(-50%, -50%) translateY(-15px) translateX(-5px) rotate(-2deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) translateY(0px) translateX(0px) rotate(0deg);
+    opacity: 0.8;
   }
 }
 
