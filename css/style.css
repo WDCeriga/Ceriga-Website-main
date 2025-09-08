@@ -1004,7 +1004,7 @@ h6 {
 }
 
 .we-work-step-card {
-  background: url(../img/how\ it\ works\ 1.png);
+  background: url(../img/design-screenshot.png);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1024,7 +1024,7 @@ h6 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(240, 219, 219, 0.2);
+  background-color: rgba(240, 219, 219, 0.8);
   border-radius: 8px;
   z-index: 1;
 }
@@ -1036,20 +1036,6 @@ h6 {
   background-color: var(--color-white);
   position: relative;
   z-index: 2;
-  animation: slideInUp 0.8s ease-out forwards;
-  opacity: 0;
-  transform: translateY(30px);
-}
-
-@keyframes slideInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.upload-box-add.active {
-  animation: slideInUp 0.8s ease-out forwards;
 }
 
 .upload-box-add::after {
