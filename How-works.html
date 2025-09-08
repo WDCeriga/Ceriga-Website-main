@@ -231,6 +231,9 @@
                                                 Drop your design here<br>
                                                 <small>or click to browse</small>
                                             </div>
+                                            <div class="upload-progress-bar">
+                                                <div class="upload-progress-fill"></div>
+                                            </div>
                                         </div>
                                         <div class="floating-files">
                                             <i class="fa-solid fa-image" style="color: var(--color-primary-button);"></i>
@@ -279,6 +282,7 @@
                                             <div class="product-preview">
                                                 <div class="preview-image">
                                                     <i class="fa-solid fa-tshirt"></i>
+                                                    <div class="preview-stats">Ready</div>
                                                 </div>
                                                 <div class="preview-label">Your Custom Design</div>
                                             </div>
@@ -492,9 +496,40 @@
                     contents[0].classList.add("active");
                 }
 
-                // Auto-rotate demo steps for step 1
+                // Auto-rotate demo steps with slower timing
                 let currentDemoStep = 1;
                 let demoInterval;
+                let customizationInterval;
+
+                function startCustomizationAnimation() {
+                    const customOptions = document.querySelectorAll('.custom-option');
+                    let activeOption = 0;
+                    
+                    if (customizationInterval) clearInterval(customizationInterval);
+                    
+                    customizationInterval = setInterval(() => {
+                        // Remove active from all options
+                        customOptions.forEach(option => option.classList.remove('active'));
+                        
+                        // Add active to current option
+                        if (customOptions[activeOption]) {
+                            customOptions[activeOption].classList.add('active');
+                        }
+                        
+                        // Move to next option
+                        activeOption = (activeOption + 1) % customOptions.length;
+                    }, 1500);
+                }
+
+                function stopCustomizationAnimation() {
+                    if (customizationInterval) {
+                        clearInterval(customizationInterval);
+                        customizationInterval = null;
+                    }
+                    // Remove active from all options
+                    const customOptions = document.querySelectorAll('.custom-option');
+                    customOptions.forEach(option => option.classList.remove('active'));
+                }
 
                 function startDemoRotation() {
                     if (demoInterval) clearInterval(demoInterval);
@@ -507,8 +542,16 @@
                             currentDemo.classList.add("inactive");
                         }
 
+                        // Stop customization animation if leaving step 2
+                        if (currentDemoStep === 2) {
+                            stopCustomizationAnimation();
+                        }
+
                         // Update progress dots
                         progressDots.forEach(dot => dot.classList.remove("active"));
+                        
+                        // Update title active state
+                        titles.forEach(title => title.classList.remove("active"));
                         
                         // Move to next step
                         currentDemoStep = currentDemoStep === 3 ? 1 : currentDemoStep + 1;
@@ -525,7 +568,17 @@
                         if (activeDot) {
                             activeDot.classList.add("active");
                         }
-                    }, 4000);
+
+                        // Update title active state
+                        if (titles[currentDemoStep - 1]) {
+                            titles[currentDemoStep - 1].classList.add("active");
+                        }
+
+                        // Start customization animation if entering step 2
+                        if (currentDemoStep === 2) {
+                            setTimeout(startCustomizationAnimation, 500);
+                        }
+                    }, 6000); // Slower timing: 6 seconds instead of 4
                 }
 
                 function stopDemoRotation() {
@@ -533,6 +586,7 @@
                         clearInterval(demoInterval);
                         demoInterval = null;
                     }
+                    stopCustomizationAnimation();
                 }
 
                 // Handle step clicks
@@ -572,10 +626,18 @@
                             // Update demo step tracking
                             currentDemoStep = index + 1;
 
-                            // Start auto-rotation only for first step
+                            // Handle specific step animations
+                            stopCustomizationAnimation();
+                            
                             if (index === 0) {
+                                // Step 1: Upload - start auto-rotation
                                 startDemoRotation();
+                            } else if (index === 1) {
+                                // Step 2: Customize - start customization animation
+                                stopDemoRotation();
+                                setTimeout(startCustomizationAnimation, 500);
                             } else {
+                                // Step 3: Preview - stop all animations
                                 stopDemoRotation();
                             }
                         }
@@ -592,6 +654,8 @@
                     workflowDemo.addEventListener('mouseleave', () => {
                         if (titles[0].classList.contains('active')) {
                             startDemoRotation();
+                        } else if (titles[1] && titles[1].classList.contains('active')) {
+                            setTimeout(startCustomizationAnimation, 500);
                         }
                     });
                 }
