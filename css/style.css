@@ -1004,7 +1004,7 @@ h6 {
 }
 
 .we-work-step-card {
-  background: linear-gradient(135deg, #f0dbdb 0%, #e8c5c5 50%, #deb3b3 100%);
+  background: #f8f9fa;
   border-radius: 20px;
   height: 616px;
   width: 616px;
@@ -1012,83 +1012,272 @@ h6 {
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(200, 15, 15, 0.1);
 }
 
-.we-work-step-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 30% 30%, rgba(200, 15, 15, 0.05) 0%, transparent 50%);
-  border-radius: 20px;
-  z-index: 1;
-}
-
-.upload-box-add {
-  width: 336px;
-  height: 250px;
-  border-radius: 18px;
-  background-color: var(--color-white);
+.workflow-demo {
+  width: 100%;
+  height: 100%;
   position: relative;
-  z-index: 2;
-  animation: slideInFromTop 1.2s ease-out forwards;
-  opacity: 0;
-  transform: translateY(-30px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-  border: 2px solid rgba(200, 15, 15, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
 }
 
-@keyframes slideInFromTop {
-  0% {
-    opacity: 0;
-    transform: translateY(-30px);
+.demo-step-1 {
+  display: block;
+}
+
+.demo-step-2, .demo-step-3 {
+  display: none;
+}
+
+.demo-step-1.active, .demo-step-2.active, .demo-step-3.active {
+  display: block;
+}
+
+.demo-step-1.inactive, .demo-step-2.inactive, .demo-step-3.inactive {
+  display: none;
+}
+
+/* Step 1: Upload Design */
+.upload-area {
+  width: 300px;
+  height: 200px;
+  border: 3px dashed var(--color-primary-button);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(200, 15, 15, 0.02);
+  position: relative;
+  animation: pulseUpload 3s ease-in-out infinite;
+}
+
+@keyframes pulseUpload {
+  0%, 100% { 
+    border-color: var(--color-primary-button);
+    background: rgba(200, 15, 15, 0.02);
   }
-  60% {
-    opacity: 0.8;
-    transform: translateY(10px);
+  50% { 
+    border-color: rgba(200, 15, 15, 0.7);
+    background: rgba(200, 15, 15, 0.05);
   }
-  100% {
+}
+
+.upload-icon {
+  font-size: 48px;
+  color: var(--color-primary-button);
+  margin-bottom: 16px;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+.upload-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-align: center;
+}
+
+.floating-files {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: var(--color-white);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: floatFiles 4s ease-in-out infinite;
+}
+
+.floating-files:nth-child(1) {
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.floating-files:nth-child(2) {
+  top: 60%;
+  right: 15%;
+  animation-delay: 1s;
+}
+
+.floating-files:nth-child(3) {
+  bottom: 20%;
+  left: 20%;
+  animation-delay: 2s;
+}
+
+@keyframes floatFiles {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% { 
+    transform: translateY(-20px) rotate(5deg);
+    opacity: 1;
+  }
+}
+
+/* Step 2: Customize */
+.customization-panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.custom-option {
+  background: var(--color-white);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  animation: slideInOptions 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.custom-option:nth-child(1) { animation-delay: 0.2s; }
+.custom-option:nth-child(2) { animation-delay: 0.4s; }
+.custom-option:nth-child(3) { animation-delay: 0.6s; }
+.custom-option:nth-child(4) { animation-delay: 0.8s; }
+
+@keyframes slideInOptions {
+  to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.upload-box-add::after {
-  position: absolute;
-  content: "";
-  background: url(../img/file-up.png);
-  height: 60px;
-  width: 60px;
-  top: 45%;
-  left: 50%;
-  background-repeat: no-repeat;
-  background-size: contain;
-  animation: enhancedHandMovement 2.5s ease-in-out infinite;
-  transform: translate(-50%, -50%);
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+.option-icon {
+  font-size: 32px;
+  color: var(--color-primary-button);
+  margin-bottom: 12px;
+  animation: iconPulse 2s ease-in-out infinite;
 }
 
-@keyframes enhancedHandMovement {
+@keyframes iconPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.option-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+/* Step 3: Preview & Order */
+.preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.product-preview {
+  width: 200px;
+  height: 240px;
+  background: var(--color-white);
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+  animation: productReveal 1.5s ease-out forwards;
+}
+
+@keyframes productReveal {
   0% {
-    transform: translate(-50%, -50%) translateY(0px) scale(1);
-    opacity: 0.7;
-  }
-  30% {
-    transform: translate(-50%, -50%) translateY(-15px) scale(1.1);
-    opacity: 1;
-  }
-  60% {
-    transform: translate(-50%, -50%) translateY(-25px) scale(1.05);
-    opacity: 0.9;
+    transform: scale(0.8) rotateY(-15deg);
+    opacity: 0;
   }
   100% {
-    transform: translate(-50%, -50%) translateY(0px) scale(1);
-    opacity: 0.7;
+    transform: scale(1) rotateY(0deg);
+    opacity: 1;
   }
+}
+
+.preview-image {
+  width: 100%;
+  height: 180px;
+  background: linear-gradient(135deg, var(--color-primary-light), #e8c5c5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  color: var(--color-primary);
+}
+
+.preview-label {
+  padding: 12px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.order-button {
+  background: var(--color-primary-button);
+  color: var(--color-white);
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  animation: buttonPulse 2s ease-in-out infinite;
+  transition: transform 0.2s ease;
+}
+
+.order-button:hover {
+  transform: scale(1.05);
+}
+
+@keyframes buttonPulse {
+  0%, 100% { box-shadow: 0 4px 12px rgba(200, 15, 15, 0.3); }
+  50% { box-shadow: 0 8px 20px rgba(200, 15, 15, 0.5); }
+}
+
+.progress-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+}
+
+.progress-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(200, 15, 15, 0.3);
+  transition: all 0.3s ease;
+}
+
+.progress-dot.active {
+  background: var(--color-primary-button);
+  transform: scale(1.2);
+}
+
+.upload-box-add {
+  display: none;
 }
 
 .uplode-text {

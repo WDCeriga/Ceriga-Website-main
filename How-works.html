@@ -220,60 +220,80 @@
 
                         <div class="col-lg-6">
                             <div class="we-work-step-card">
-                                <div class="upload-box-add">
-                                    <div class="uplode-text">
-                                        <p>Stitching</p>
-                                        <i class="fa-solid fa-tag"></i>
+                                <div class="workflow-demo">
+                                    <!-- Step 1: Upload Design -->
+                                    <div class="demo-step-1 active">
+                                        <div class="upload-area">
+                                            <div class="upload-icon">
+                                                <i class="fa-solid fa-cloud-upload-alt"></i>
+                                            </div>
+                                            <div class="upload-text">
+                                                Drop your design here<br>
+                                                <small>or click to browse</small>
+                                            </div>
+                                        </div>
+                                        <div class="floating-files">
+                                            <i class="fa-solid fa-image" style="color: var(--color-primary-button);"></i>
+                                        </div>
+                                        <div class="floating-files">
+                                            <i class="fa-solid fa-file-pdf" style="color: var(--color-primary-button);"></i>
+                                        </div>
+                                        <div class="floating-files">
+                                            <i class="fa-solid fa-file-image" style="color: var(--color-primary-button);"></i>
+                                        </div>
                                     </div>
-                                    <div class="uplode-text">
-                                        <p>Fading</p>
-                                        <i class="fa-solid fa-tag"></i>
+
+                                    <!-- Step 2: Customize -->
+                                    <div class="demo-step-2">
+                                        <div class="customization-panel">
+                                            <div class="custom-option">
+                                                <div class="option-icon">
+                                                    <i class="fa-solid fa-palette"></i>
+                                                </div>
+                                                <div class="option-title">Colors</div>
+                                            </div>
+                                            <div class="custom-option">
+                                                <div class="option-icon">
+                                                    <i class="fa-solid fa-ruler"></i>
+                                                </div>
+                                                <div class="option-title">Measurements</div>
+                                            </div>
+                                            <div class="custom-option">
+                                                <div class="option-icon">
+                                                    <i class="fa-solid fa-tags"></i>
+                                                </div>
+                                                <div class="option-title">Labels</div>
+                                            </div>
+                                            <div class="custom-option">
+                                                <div class="option-icon">
+                                                    <i class="fa-solid fa-cogs"></i>
+                                                </div>
+                                                <div class="option-title">Materials</div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="uplode-text">
-                                        <p>Your Logo</p>
-                                        <i
-                                            class="fa-solid fa-arrow-up-from-bracket"
-                                        ></i>
+
+                                    <!-- Step 3: Preview & Order -->
+                                    <div class="demo-step-3">
+                                        <div class="preview-container">
+                                            <div class="product-preview">
+                                                <div class="preview-image">
+                                                    <i class="fa-solid fa-tshirt"></i>
+                                                </div>
+                                                <div class="preview-label">Your Custom Design</div>
+                                            </div>
+                                            <button class="order-button">
+                                                <i class="fa-solid fa-shopping-cart"></i>
+                                                Place Order
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="uplode-text border-0">
-                                        <p>Custom Labels</p>
-                                        <i class="fa-solid fa-tag"></i>
-                                    </div>
-                                </div>
-                                <div class="upload-box-add">
-                                    <div class="uplode-text">
-                                        <p>Custom Colors</p>
-                                        <i class="fa-solid fa-palette"></i>
-                                    </div>
-                                    <div class="uplode-text">
-                                        <p>Embroidery</p>
-                                        <i class="fa-solid fa-cogs"></i>
-                                    </div>
-                                    <div class="uplode-text">
-                                        <p>Your Message</p>
-                                        <i class="fa-solid fa-comment"></i>
-                                    </div>
-                                    <div class="uplode-text border-0">
-                                        <p>Other Options</p>
-                                        <i class="fa-solid fa-cogs"></i>
-                                    </div>
-                                </div>
-                                <div class="upload-box-add">
-                                    <div class="uplode-text">
-                                        <p>Additional Features</p>
-                                        <i class="fa-solid fa-cogs"></i>
-                                    </div>
-                                    <div class="uplode-text">
-                                        <p>Packaging</p>
-                                        <i class="fa-solid fa-box"></i>
-                                    </div>
-                                    <div class="uplode-text">
-                                        <p>Delivery Options</p>
-                                        <i class="fa-solid fa-truck"></i>
-                                    </div>
-                                    <div class="uplode-text border-0">
-                                        <p>Special Requests</p>
-                                        <i class="fa-solid fa-heart"></i>
+
+                                    <!-- Progress Dots -->
+                                    <div class="progress-dots">
+                                        <div class="progress-dot active" data-step="1"></div>
+                                        <div class="progress-dot" data-step="2"></div>
+                                        <div class="progress-dot" data-step="3"></div>
                                     </div>
                                 </div>
                             </div>
@@ -462,64 +482,118 @@
                 const titles = document.querySelectorAll(".we-work-title");
                 const steps = document.querySelectorAll(".we-work-step");
                 const contents = document.querySelectorAll(".we-work-content");
-                const uploadBoxes =
-                    document.querySelectorAll(".upload-box-add");
+                const demoSteps = document.querySelectorAll("[class*='demo-step-']");
+                const progressDots = document.querySelectorAll(".progress-dot");
 
-                if (
-                    titles.length > 0 &&
-                    steps.length > 0 &&
-                    contents.length > 0 &&
-                    uploadBoxes.length > 0
-                ) {
-                    if (
-                        titles.length === steps.length &&
-                        steps.length === contents.length &&
-                        contents.length === uploadBoxes.length
-                    ) {
-                        titles[0].classList.add("active");
-                        steps[0].classList.add("active");
-                        contents[0].classList.add("active");
-                        uploadBoxes[0].style.display = "block";
+                // Initialize first step
+                if (titles.length > 0 && steps.length > 0 && contents.length > 0) {
+                    titles[0].classList.add("active");
+                    steps[0].classList.add("active");
+                    contents[0].classList.add("active");
+                }
 
-                        titles.forEach(function (title, index) {
-                            title.addEventListener("click", function () {
-                                if (!title.classList.contains("active")) {
-                                    title.classList.add("active");
-                                    steps[index].classList.add("active");
-                                    contents[index].classList.add("active");
+                // Auto-rotate demo steps for step 1
+                let currentDemoStep = 1;
+                let demoInterval;
 
-                                    uploadBoxes.forEach(function (box) {
-                                        box.style.display = "none";
-                                    });
+                function startDemoRotation() {
+                    if (demoInterval) clearInterval(demoInterval);
+                    
+                    demoInterval = setInterval(() => {
+                        // Hide current demo step
+                        const currentDemo = document.querySelector(`.demo-step-${currentDemoStep}`);
+                        if (currentDemo) {
+                            currentDemo.classList.remove("active");
+                            currentDemo.classList.add("inactive");
+                        }
 
-                                    if (uploadBoxes[index]) {
-                                        uploadBoxes[index].style.display =
-                                            "block";
-                                    }
+                        // Update progress dots
+                        progressDots.forEach(dot => dot.classList.remove("active"));
+                        
+                        // Move to next step
+                        currentDemoStep = currentDemoStep === 3 ? 1 : currentDemoStep + 1;
+                        
+                        // Show new demo step
+                        const nextDemo = document.querySelector(`.demo-step-${currentDemoStep}`);
+                        if (nextDemo) {
+                            nextDemo.classList.remove("inactive");
+                            nextDemo.classList.add("active");
+                        }
 
-                                    for (let i = 0; i < titles.length; i++) {
-                                        if (i !== index) {
-                                            titles[i].classList.remove(
-                                                "active",
-                                            );
-                                            steps[i].classList.remove("active");
-                                            contents[i].classList.remove(
-                                                "active",
-                                            );
-                                        }
-                                    }
-                                }
-                            });
-                        });
-                    } else {
-                        console.warn(
-                            "Mismatch between the number of titles, steps, contents, and upload boxes.",
-                        );
+                        // Update progress dot
+                        const activeDot = document.querySelector(`.progress-dot[data-step="${currentDemoStep}"]`);
+                        if (activeDot) {
+                            activeDot.classList.add("active");
+                        }
+                    }, 4000);
+                }
+
+                function stopDemoRotation() {
+                    if (demoInterval) {
+                        clearInterval(demoInterval);
+                        demoInterval = null;
                     }
-                } else {
-                    console.warn(
-                        "Elements for the tabs are not found in the DOM.",
-                    );
+                }
+
+                // Handle step clicks
+                titles.forEach(function (title, index) {
+                    title.addEventListener("click", function () {
+                        if (!title.classList.contains("active")) {
+                            // Remove active from all elements
+                            titles.forEach(t => t.classList.remove("active"));
+                            steps.forEach(s => s.classList.remove("active"));
+                            contents.forEach(c => c.classList.remove("active"));
+
+                            // Add active to clicked elements
+                            title.classList.add("active");
+                            steps[index].classList.add("active");
+                            contents[index].classList.add("active");
+
+                            // Hide all demo steps
+                            demoSteps.forEach(demo => {
+                                demo.classList.remove("active");
+                                demo.classList.add("inactive");
+                            });
+
+                            // Show corresponding demo step
+                            const targetDemo = document.querySelector(`.demo-step-${index + 1}`);
+                            if (targetDemo) {
+                                targetDemo.classList.remove("inactive");
+                                targetDemo.classList.add("active");
+                            }
+
+                            // Update progress dots
+                            progressDots.forEach(dot => dot.classList.remove("active"));
+                            const activeDot = document.querySelector(`.progress-dot[data-step="${index + 1}"]`);
+                            if (activeDot) {
+                                activeDot.classList.add("active");
+                            }
+
+                            // Update demo step tracking
+                            currentDemoStep = index + 1;
+
+                            // Start auto-rotation only for first step
+                            if (index === 0) {
+                                startDemoRotation();
+                            } else {
+                                stopDemoRotation();
+                            }
+                        }
+                    });
+                });
+
+                // Start with auto-rotation since first step is active
+                startDemoRotation();
+
+                // Handle hover to pause auto-rotation
+                const workflowDemo = document.querySelector('.workflow-demo');
+                if (workflowDemo) {
+                    workflowDemo.addEventListener('mouseenter', stopDemoRotation);
+                    workflowDemo.addEventListener('mouseleave', () => {
+                        if (titles[0].classList.contains('active')) {
+                            startDemoRotation();
+                        }
+                    });
                 }
             });
         </script>
