@@ -1004,7 +1004,7 @@ h6 {
 }
 
 .we-work-step-card {
-  background: url(../img/design-screenshot.png);
+  background: url(../img/how-works2.png);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1024,7 +1024,7 @@ h6 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(240, 219, 219, 0.8);
+  background-color: rgba(240, 219, 219, 0.3);
   border-radius: 8px;
   z-index: 1;
 }
@@ -1036,6 +1036,24 @@ h6 {
   background-color: var(--color-white);
   position: relative;
   z-index: 2;
+  animation: slideInFromTop 1.2s ease-out forwards;
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+@keyframes slideInFromTop {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .upload-box-add::after {
@@ -1047,6 +1065,50 @@ h6 {
   top: 45%;
   left: 50%;
   background-repeat: no-repeat;
+  animation: floatingHand 2s ease-in-out infinite;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes floatingHand {
+  0%, 100% {
+    transform: translate(-50%, -50%) translateY(0px);
+  }
+  50% {
+    transform: translate(-50%, -50%) translateY(-10px);
+  }
+}
+
+.uplode-text {
+  animation: fadeInStagger 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.uplode-text:nth-child(1) {
+  animation-delay: 0.3s;
+}
+
+.uplode-text:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.uplode-text:nth-child(3) {
+  animation-delay: 0.7s;
+}
+
+.uplode-text:nth-child(4) {
+  animation-delay: 0.9s;
+}
+
+@keyframes fadeInStagger {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .uplode-text {
