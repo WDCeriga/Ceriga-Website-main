@@ -1004,29 +1004,13 @@ h6 {
 }
 
 .we-work-step-card {
-  background: url(../img/design-screenshot.png);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-color: var(--color-primary-light);
   border-radius: 8px;
   height: 616px;
   width: 616px;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-}
-
-.we-work-step-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(240, 219, 219, 0.8);
-  border-radius: 8px;
-  z-index: 1;
 }
 
 .upload-box-add {
@@ -1035,7 +1019,6 @@ h6 {
   border-radius: 18.24px;
   background-color: var(--color-white);
   position: relative;
-  z-index: 2;
 }
 
 .upload-box-add::after {
