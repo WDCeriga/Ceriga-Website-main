@@ -47,18 +47,33 @@
 <body>
 
     <header>
-        <nav class="navbar navbar-inner navbar-expand-xl fixed-top">
+        <nav class="navbar navbar-expand-xl fixed-top">
             <div class="container logo-nav">
-                <a class="navbar-brand fw-bold text-uppercase text-light" href="./index.html"
-                    title="home-page">CERIGA.</a>
+                <a
+                    class="navbar-brand fw-bold text-uppercase"
+                    href="./index.html"
+                    title="home-page"
+                    >CERIGA<span style="color: #c80f0f">.</span></a
+                >
 
                 <div class="home-nav-btn-align">
                     <div class="home-nav-btn nav-btn-hide-show">
-                        <a class="btn-primary-custom" href="javascript:void(0);" title="move-link-btn">Our Blanks</a>
+                        <a
+                            class="btn-primary-custom"
+                            href="https://studio.ceriga.co/auth/sign-in"
+                            title="move-link-btn"
+                            >Log in</a
+                        >
                     </div>
-                    <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false"
-                        aria-label="Toggle navigation">
+                    <button
+                        class="navbar-toggler custom-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#mainNavbar"
+                        aria-controls="mainNavbar"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
                         <span class="menu-icon">
                             <span class="bar top"></span>
                             <span class="bar bottom"></span>
@@ -69,24 +84,53 @@
                 <div class="collapse navbar-collapse" id="mainNavbar">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-light" aria-current="page" href="./How-works.html"
-                                title="how-works">How it works</a>
+                            <a
+                                class="nav-link"
+                                aria-current="page"
+                                href="./How-works.html"
+                                title="how it works"
+                                >How it works</a
+                            >
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="./aboutus.html" title="about-us">About Us</a>
+                            <a
+                                class="nav-link"
+                                href="./AboutUS.html"
+                                title="about-us"
+                                >About Us</a
+                            >
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="./Gallery.html" title="gallery">Gallery</a>
+                            <a
+                                class="nav-link"
+                                href="./Gallery.html"
+                                title="our-gallery"
+                                >Gallery</a
+                            >
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="./ContactUS.html" title="contact-us">Contact Us</a>
+                            <a
+                                class="nav-link"
+                                href="ContactUS.html"
+                                title="contact-us"
+                                >Contact Us</a
+                            >
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light active" href="./Faq.html" title="faq">FAQ</a>
+                            <a
+                                class="nav-link"
+                                href="./Faq.html"
+                                title="faq"
+                                >FAQ</a
+                            >
                         </li>
                         <li class="nav-item home-nav-btn mobile-view-hide">
-                            <a class="btn-primary-custom" href="javascript:void(0);" title="move-link-btn">Our
-                                Blanks</a>
+                            <a
+                                class="btn-primary-custom"
+                                href="https://studio.ceriga.co/auth/sign-in"
+                                title="move-link-btn"
+                                >Log in</a
+                            >
                         </li>
                     </ul>
                 </div>
@@ -109,12 +153,13 @@
                                 </a>
                             </div>
                             <div class="contact-info-item" data-aos="fade-down" data-aos-duration="600">
-                                <i class="fa-brands fa-instagram"></i></a></i> <a href="https://www.instagram.com/ceriga.studio/" title="social-media"
-                                    class="contact-list">
+                                <i class="fa-brands fa-instagram"></i>
+                                <a href="https://www.instagram.com/ceriga.studio/" title="social-media"
+                                   class="contact-list" target="_blank" rel="noopener noreferrer">
                                     Ceriga Studio
                                 </a>
                             </div>
-                            
+
                         </div>
                     </div>
 
@@ -128,14 +173,27 @@
                                 <label for="email">Email</label>
                                 <input type="email" id="email" name="email" class="form-control">
                             </div>
+
+                            <div class="form-group" data-aos="fade-down" data-aos-duration="650">
+                                <label for="subject">Subject</label>
+                                <div class="dropdown-wrapper" style="position: relative;">
+                                    <select id="subject" name="subject" class="form-control" style="appearance: none; -webkit-appearance: none; -moz-appearance: none;">
+                                        <option value="" disabled selected>Select a subject</option>
+                                        <option value="general">General Inquiry</option>
+                                        <option value="quote">Submiting A Tech Pack</option>
+                                        <option value="support">Blank Clothing Enquiry</option>
+                                        <option value="support">Support</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <i class="fa-solid fa-chevron-down" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); pointer-events: none;"></i>
+                                </div>
+                            </div>
+
+
                             <div class="form-group" data-aos="fade-down" data-aos-duration="700">
                                 <label for="file-upload">Upload File</label>
                                 <div class="file-upload-wrapper">
-                                    <!-- Hidden file input -->
-                                    <input type="file" id="file-upload" name="file-upload" class="form-control-file"
-                                        style="display: none;">
-
-                                    <!-- Custom file upload area that triggers the file input when clicked -->
+                                    <input type="file" id="file-upload" name="file-upload" class="form-control-file" style="display: none;">
                                     <div id="custom-file-area" class="custom-file-area">
                                         <span id="file-name">Click here to upload a file</span>
                                     </div>
@@ -148,12 +206,11 @@
                             </div>
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="terms">
-                                <label class="form-check-label" for="terms">I accept the <a href="javascript:void(0);"
-                                        title="our-terms-service">Terms</a></label>
+                                <label class="form-check-label" for="terms">I accept the <a href="javascript:void(0);" title="our-terms-service">Terms</a></label>
                             </div>
-                            <a class="btn-primary-custom contact-btn mt-3" href="javascript:void(0);"
-                                itemid="form-sbmit">Submit</a>
+                            <a class="btn-primary-custom contact-btn mt-3" href="javascript:void(0);" itemid="form-sbmit">Submit</a>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -188,23 +245,45 @@
         <div class="container">
             <div class="row pb-5">
                 <div class="col-lg-8 mb-4">
-                    <h3 class="footer-logo">CERIGA.</h3>
+                    <h3 class="footer-logo">CERIGA<span style="color: #c80f0f">.</span></a
+                            ></h3>
                     <p class="footer-description">
                         Ceriga specializes in offering quality solutions<br>
                         that enhance your online business by solving<br>
                         problems.
                     </p>
                     <div class="footer-social-icons">
-                        <a href="javascript:void(0);" title="instagram-id"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="javascript:void(0);" title="twitter-id"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="javascript:void(0);" title="facebook-id"><i class="fa-brands fa-facebook"></i></a>
+                        <a
+                            href="https://www.instagram.com/ceriga.studio/"
+                            title="Instagram"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a
+                            href="https://x.com/CerigaStudio"
+                            title="X (Twitter)"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                        <a
+                            href="https://www.tiktok.com/@ceriga__"
+                            title="TikTok"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
                     </div>
                 </div>
 
                 <div class="col-lg-4">
                     <div class="row justify-content-between">
                         <div class="col-6 d-flex flex-column row-gap-3">
-                            <a href="javascript:void(0);" title="our-blanks-btn" class="list-of-item">
+                            <a href="ContactUS.html" title="our-blanks-btn" class="list-of-item">
                                 Our Blanks
                             </a>
 
