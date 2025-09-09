@@ -179,7 +179,7 @@
                         <div class="col-lg-6">
                             <div class="we-work-step">
                                 <p class="we-work-title">
-                                    1. UPLOAD YOUR DESIGN
+                                    1. CUSTOMIZE YOUR BLANK
                                 </p>
                                 <p class="we-work-content">
                                     Choose from our curated collection of
@@ -193,7 +193,7 @@
 
                             <div class="we-work-step">
                                 <p class="we-work-title">
-                                    2. CUSTOMIZE YOUR BLANK
+                                    2. UPLOAD YOUR DESIGN
                                 </p>
                                 <p class="we-work-content">
                                     Bring your brand to life. Easily upload your
@@ -221,33 +221,8 @@
                         <div class="col-lg-6">
                             <div class="we-work-step-card">
                                 <div class="workflow-demo">
-                                    <!-- Step 1: Upload Design -->
+                                    <!-- Step 1: Customize -->
                                     <div class="demo-step-1 active">
-                                        <div class="upload-area">
-                                            <div class="upload-icon">
-                                                <i class="fa-solid fa-cloud-upload-alt"></i>
-                                            </div>
-                                            <div class="upload-text">
-                                                Drop your design here<br>
-                                                <small>or click to browse</small>
-                                            </div>
-                                            <div class="upload-progress">
-                                                <div class="upload-progress-bar"></div>
-                                            </div>
-                                        </div>
-                                        <div class="floating-files">
-                                            <i class="fa-solid fa-image" style="color: var(--color-primary-button);"></i>
-                                        </div>
-                                        <div class="floating-files">
-                                            <i class="fa-solid fa-file-pdf" style="color: var(--color-primary-button);"></i>
-                                        </div>
-                                        <div class="floating-files">
-                                            <i class="fa-solid fa-file-image" style="color: var(--color-primary-button);"></i>
-                                        </div>
-                                    </div>
-
-                                    <!-- Step 2: Customize -->
-                                    <div class="demo-step-2">
                                         <div class="customization-panel">
                                             <div class="custom-option">
                                                 <div class="option-icon">
@@ -276,6 +251,31 @@
                                         </div>
                                     </div>
 
+                                    <!-- Step 2: Upload Design -->
+                                    <div class="demo-step-2">
+                                        <div class="upload-area">
+                                            <div class="upload-icon">
+                                                <i class="fa-solid fa-cloud-upload-alt"></i>
+                                            </div>
+                                            <div class="upload-text">
+                                                Drop your design here<br>
+                                                <small>or click to browse</small>
+                                            </div>
+                                            <div class="upload-progress">
+                                                <div class="upload-progress-bar"></div>
+                                            </div>
+                                        </div>
+                                        <div class="floating-files">
+                                            <i class="fa-solid fa-image" style="color: var(--color-primary-button);"></i>
+                                        </div>
+                                        <div class="floating-files">
+                                            <i class="fa-solid fa-file-pdf" style="color: var(--color-primary-button);"></i>
+                                        </div>
+                                        <div class="floating-files">
+                                            <i class="fa-solid fa-file-image" style="color: var(--color-primary-button);"></i>
+                                        </div>
+                                    </div>
+
                                     <!-- Step 3: Preview & Order -->
                                     <div class="demo-step-3">
                                         <div class="preview-container">
@@ -285,12 +285,14 @@
                                                 </div>
                                                 <div class="preview-label">Your Custom Design</div>
                                             </div>
-                                            <button class="order-button">
-                                                <i class="fa-solid fa-shopping-cart"></i>
-                                                Place Order
-                                            </button>
-                                            <div class="shipping-status">
-                                                Ready to Ship!
+                                            <div class="preview-actions">
+                                                <button class="order-button">
+                                                    <i class="fa-solid fa-shopping-cart"></i>
+                                                    Place Order
+                                                </button>
+                                                <div class="shipping-status">
+                                                    Ready to Ship!
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -559,7 +561,7 @@
                             }
 
                             // Handle animations based on step
-                            if (index === 1) { // Step 2 - Customize
+                            if (index === 0) { // Step 1 - Customize (now first)
                                 stopOptionCycling();
                                 setTimeout(startOptionCycling, 500); // Start after transition
                             } else {
