@@ -205,14 +205,15 @@
                             </div>
                             <div class="we-work-step">
                                 <p class="we-work-title">
-                                    3. TRACK YOUR ORDER
+                                    3. PREVIEW AND ORDER
                                 </p>
                                 <p class="we-work-content">
-                                    Once your order is placed, track its journey
-                                    from production to your doorstep. Get real-time
-                                    updates on manufacturing progress, shipping
-                                    status, and delivery estimates with our
-                                    comprehensive tracking system.
+                                    Review a realistic digital preview of your
+                                    final product. Check every detail, from
+                                    stitching to placement, before finalizing.
+                                    When you're confident, simply place your
+                                    order and we’ll begin production and
+                                    shipping right away.
                                 </p>
                             </div>
                         </div>
@@ -220,7 +221,7 @@
                         <div class="col-lg-6">
                             <div class="we-work-step-card">
                                 <div class="workflow-demo">
-                                    <!-- Step 1: Customize Blank -->
+                                    <!-- Step 1: Customize -->
                                     <div class="demo-step-1 active">
                                         <div class="customization-panel">
                                             <div class="custom-option">
@@ -275,22 +276,23 @@
                                         </div>
                                     </div>
 
-                                    <!-- Step 3: Track Order -->
+                                    <!-- Step 3: Preview & Order -->
                                     <div class="demo-step-3">
                                         <div class="preview-container">
                                             <div class="product-preview">
                                                 <div class="preview-image">
-                                                    <i class="fa-solid fa-box-open"></i>
+                                                    <i class="fa-solid fa-tshirt"></i>
                                                 </div>
-                                                <div class="preview-label">Order Tracking</div>
+                                                <div class="preview-label">Your Custom Design</div>
                                             </div>
-                                            <div class="tracking-info">
-                                                <p><strong>Status:</strong> Shipped</p>
-                                                <p><strong>ETA:</strong> 3-5 Days</p>
+                                            <div class="preview-actions">
                                                 <button class="order-button">
-                                                    <i class="fa-solid fa-truck"></i>
-                                                    Track Package
+                                                    <i class="fa-solid fa-shopping-cart"></i>
+                                                    Place Order
                                                 </button>
+                                                <div class="shipping-status">
+                                                    Ready to Ship!
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -502,19 +504,19 @@
 
                 function startOptionCycling() {
                     if (optionCycleInterval) clearInterval(optionCycleInterval);
-
+                    
                     const customOptions = document.querySelectorAll('.custom-option');
                     let currentOption = 0;
-
+                    
                     optionCycleInterval = setInterval(() => {
                         // Remove active from all options
                         customOptions.forEach(option => option.classList.remove('active'));
-
+                        
                         // Add active to current option
                         if (customOptions[currentOption]) {
                             customOptions[currentOption].classList.add('active');
                         }
-
+                        
                         // Move to next option
                         currentOption = (currentOption + 1) % customOptions.length;
                     }, 1500);
@@ -526,7 +528,7 @@
                         optionCycleInterval = null;
                     }
                     // Remove active from all options
-                    document.querySelectorAll('.custom-option').forEach(option =>
+                    document.querySelectorAll('.custom-option').forEach(option => 
                         option.classList.remove('active')
                     );
                 }
@@ -559,7 +561,7 @@
                             }
 
                             // Handle animations based on step
-                            if (index === 1) { // Step 2 - Customize
+                            if (index === 0) { // Step 1 - Customize (now first)
                                 stopOptionCycling();
                                 setTimeout(startOptionCycling, 500); // Start after transition
                             } else {
