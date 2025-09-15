@@ -594,8 +594,7 @@
                     },
                 ];
 
-                const timelineContainer =
-                    document.getElementById("timeline-container");
+                const timelineContainer = document.getElementById("timeline-container");
                 const timelineWrapper = document.createElement("div");
                 timelineWrapper.className = "timeline-wrapper";
                 timelineContainer.appendChild(timelineWrapper);
@@ -604,7 +603,10 @@
                 fixedLine.className = "timeline-fixed-line";
                 timelineContainer.parentNode.appendChild(fixedLine);
 
-                timelineData.forEach((event) => {
+                // Duplicate the timeline data for infinite scrolling
+                const allEvents = [...timelineData, ...timelineData];
+
+                allEvents.forEach((event) => {
                     const eventElement = document.createElement("div");
                     eventElement.className = "timeline-event";
 
@@ -628,6 +630,88 @@
                     eventElement.appendChild(contentElement);
                     timelineWrapper.appendChild(eventElement);
                 });
+
+                function setDimensions() {
+                    if (window.innerWidth > 768) {
+                        // Desktop - Horizontal scrolling
+                        timelineContainer.style.overflowX = "scroll";
+                        timelineContainer.style.overflowY = "hidden";
+                        timelineContainer.style.whiteSpace = "nowrap";
+                        timelineWrapper.style.display = "inline-block";
+                    } else {
+                        // Mobile - Vertical scrolling
+                        timelineContainer.style.overflowX = "hidden";
+                        timelineContainer.style.overflowY = "scroll";
+                        timelineContainer.style.whiteSpace = "normal";
+                        timelineWrapper.style.display = "block";
+                    }
+                }
+
+                setDimensions();
+
+                let isScrolling = true;
+                let isHovering = false;
+                let scrollSpeed = 1.0;
+                let animationFrameId = null;
+
+                function infiniteScroll() {
+                    if (isScrolling && !isHovering) {
+                        if (window.innerWidth > 768) {
+                            // Desktop Horizontal
+                            timelineContainer.scrollLeft += scrollSpeed;
+                            const singleSetWidth = timelineWrapper.scrollWidth / 2;
+                            
+                            // Check if we've scrolled past the halfway point (end of first set)
+                            if (timelineContainer.scrollLeft >= singleSetWidth - 1) {
+                                // Smoothly reset to beginning of first set
+                                timelineContainer.scrollLeft = 0;
+                            }
+                        } else {
+                            // Mobile Vertical
+                            timelineContainer.scrollTop += scrollSpeed;
+                            const singleSetHeight = timelineWrapper.scrollHeight / 2;
+                            
+                            // Check if we've scrolled past the halfway point (end of first set)
+                            if (timelineContainer.scrollTop >= singleSetHeight - 1) {
+                                // Smoothly reset to beginning of first set
+                                timelineContainer.scrollTop = 0;
+                            }
+                        }
+                    }
+                    animationFrameId = requestAnimationFrame(infiniteScroll);
+                }
+
+                timelineContainer.addEventListener('mouseenter', () => {
+                    isHovering = true;
+                });
+
+                timelineContainer.addEventListener('mouseleave', () => {
+                    isHovering = false;
+                });
+
+                function initScrollPosition() {
+                    if (window.innerWidth > 768) {
+                        timelineContainer.scrollLeft = 0;
+                    } else {
+                        timelineContainer.scrollTop = 0;
+                    }
+                }
+
+                timelineContainer.addEventListener("scroll", () => {
+                    // Optionally add pause scroll on user interaction
+                    // No user scroll in your original design, so keep empty
+                });
+
+                setTimeout(() => {
+                    initScrollPosition();
+                    animationFrameId = requestAnimationFrame(infiniteScroll);
+                }, 1000);
+
+                setTimeout(() => {
+                    setDimensions();
+                }, 500);
+
+                // });
             });
         </script>
     </body>
