@@ -2058,8 +2058,7 @@ h6 {
   padding: 65px 15px 0 30px;
   display: flex;
   margin-top: 4rem;
-  overflow-y: auto;
-  overflow-x: hidden;
+  overflow: hidden;
   white-space: nowrap;
   -ms-overflow-style: none;
 }
@@ -2094,7 +2093,20 @@ h6 {
   min-width: 100%;
   position: relative;
   padding: 50px 0;
-  transition: transform 0.5s ease;
+  animation: scrollHorizontal 30s linear infinite;
+}
+
+@keyframes scrollHorizontal {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.timeline-wrapper.paused {
+  animation-play-state: paused;
 }
 
 .timeline-fixed-line {
@@ -2537,6 +2549,19 @@ h6 {
     bottom: 0;
     top: auto;
     background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+  }
+
+  .timeline-wrapper {
+    animation: scrollVertical 25s linear infinite;
+  }
+
+  @keyframes scrollVertical {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-50%);
+    }
   }
 
   .color-show-box,
