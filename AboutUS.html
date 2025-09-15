@@ -661,37 +661,14 @@
 
             setDimensions();
 
-            let isScrolling = true;
-            let isHovering = false;
-            let scrollSpeed = 1.0;
-            let animationFrameId = null;
+            // Add hover pause functionality
+            timelineContainer.addEventListener('mouseenter', () => {
+                timelineWrapper.classList.add('paused');
+            });
 
-            function infiniteScroll() {
-                if (isScrolling && !isHovering) {
-                    if (window.innerWidth > 768) {
-                        // Desktop Horizontal
-                        timelineContainer.scrollLeft += scrollSpeed;
-                        const singleSetWidth = timelineWrapper.scrollWidth / 2;
-                        
-                        // Check if we've scrolled past the halfway point (end of first set)
-                        if (timelineContainer.scrollLeft >= singleSetWidth - 1) {
-                            // Smoothly reset to beginning of first set
-                            timelineContainer.scrollLeft = 0;
-                        }
-                    } else {
-                        // Mobile Vertical
-                        timelineContainer.scrollTop += scrollSpeed;
-                        const singleSetHeight = timelineWrapper.scrollHeight / 2;
-                        
-                        // Check if we've scrolled past the halfway point (end of first set)
-                        if (timelineContainer.scrollTop >= singleSetHeight - 1) {
-                            // Smoothly reset to beginning of first set
-                            timelineContainer.scrollTop = 0;
-                        }
-                    }
-                }
-                animationFrameId = requestAnimationFrame(infiniteScroll);
-            }
+            timelineContainer.addEventListener('mouseleave', () => {
+                timelineWrapper.classList.remove('paused');
+            });
 
             function initScrollPosition() {
                 if (window.innerWidth > 768) {
@@ -701,27 +678,9 @@
                 }
             }
 
-            timelineContainer.addEventListener("scroll", () => {
-                // Optionally add pause scroll on user interaction
-                // No user scroll in your original design, so keep empty
-            });
-
-            // window.addEventListener('resize', () => {
-            //     if (animationFrameId) {
-            //         cancelAnimationFrame(animationFrameId);
-            //     }
-            //     setDimensions();
-            //     initScrollPosition();
-            //     animationFrameId = requestAnimationFrame(infiniteScroll);
-            // });
-
-            setTimeout(() => {
-                initScrollPosition();
-                animationFrameId = requestAnimationFrame(infiniteScroll);
-            }, 1000);
-
             setTimeout(() => {
                 setDimensions();
+                initScrollPosition();
             }, 500);
 
             // });
