@@ -607,34 +607,33 @@
             // Create timeline events and clone for seamless infinite scroll
             function createTimelineEvents() {
                 timelineWrapper.innerHTML = "";
-                
-                // Create events twice for seamless looping
-                for (let i = 0; i < 2; i++) {
-                    timelineData.forEach((event) => {
-                        const eventElement = document.createElement("div");
-                        eventElement.className = "timeline-event";
+                timelineData.forEach((event) => {
+                    const eventElement = document.createElement("div");
+                    eventElement.className = "timeline-event";
 
-                        const dotElement = document.createElement("div");
-                        dotElement.className = "timeline-event-dot";
+                    const dotElement = document.createElement("div");
+                    dotElement.className = "timeline-event-dot";
 
-                        const contentElement = document.createElement("div");
-                        contentElement.className = "timeline-event-content";
+                    const contentElement = document.createElement("div");
+                    contentElement.className = "timeline-event-content";
 
-                        const titleElement = document.createElement("h3");
-                        titleElement.className = "timeline-event-title";
-                        titleElement.textContent = event.date;
+                    const titleElement = document.createElement("h3");
+                    titleElement.className = "timeline-event-title";
+                    titleElement.textContent = event.date;
 
-                        const descElement = document.createElement("p");
-                        descElement.className = "timeline-event-description";
-                        descElement.textContent = event.description;
+                    const descElement = document.createElement("p");
+                    descElement.className = "timeline-event-description";
+                    descElement.textContent = event.description;
 
-                        contentElement.appendChild(titleElement);
-                        contentElement.appendChild(descElement);
-                        eventElement.appendChild(dotElement);
-                        eventElement.appendChild(contentElement);
-                        timelineWrapper.appendChild(eventElement);
-                    });
-                }
+                    contentElement.appendChild(titleElement);
+                    contentElement.appendChild(descElement);
+                    eventElement.appendChild(dotElement);
+                    eventElement.appendChild(contentElement);
+                    timelineWrapper.appendChild(eventElement);
+                });
+
+                // Clone the timeline events for seamless scroll
+                timelineWrapper.innerHTML += timelineWrapper.innerHTML;
             }
 
             createTimelineEvents();
@@ -672,34 +671,23 @@
                         // Desktop Horizontal
                         timelineContainer.scrollLeft += scrollSpeed;
                         const singleSetWidth = timelineWrapper.scrollWidth / 2;
-                        
-                        // Check if we've scrolled past the halfway point (end of first set)
-                        if (timelineContainer.scrollLeft >= singleSetWidth - 1) {
-                            // Smoothly reset to beginning of first set
-                            timelineContainer.scrollLeft = 0;
+                        if (timelineContainer.scrollLeft >= singleSetWidth) {
+                            // Send to same position in the second (cloned) set
+                            timelineContainer.scrollLeft -= singleSetWidth;
                         }
                     } else {
                         // Mobile Vertical
                         timelineContainer.scrollTop += scrollSpeed;
-                        const singleSetHeight = timelineWrapper.scrollHeight / 2;
-                        
-                        // Check if we've scrolled past the halfway point (end of first set)
-                        if (timelineContainer.scrollTop >= singleSetHeight - 1) {
-                            // Smoothly reset to beginning of first set
-                            timelineContainer.scrollTop = 0;
+                        const singleSetHeight =
+                            timelineWrapper.scrollHeight / 2;
+                        if (timelineContainer.scrollTop >= singleSetHeight) {
+                            // Send to same position in the second set
+                            timelineContainer.scrollTop -= singleSetHeight;
                         }
                     }
                 }
                 animationFrameId = requestAnimationFrame(infiniteScroll);
             }
-
-            timelineContainer.addEventListener('mouseenter', () => {
-                isHovering = true;
-            });
-
-            timelineContainer.addEventListener('mouseleave', () => {
-                isHovering = false;
-            });
 
             function initScrollPosition() {
                 if (window.innerWidth > 768) {
@@ -713,6 +701,15 @@
                 // Optionally add pause scroll on user interaction
                 // No user scroll in your original design, so keep empty
             });
+
+            // window.addEventListener('resize', () => {
+            //     if (animationFrameId) {
+            //         cancelAnimationFrame(animationFrameId);
+            //     }
+            //     setDimensions();
+            //     initScrollPosition();
+            //     animationFrameId = requestAnimationFrame(infiniteScroll);
+            // });
 
             setTimeout(() => {
                 initScrollPosition();
