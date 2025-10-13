@@ -2093,7 +2093,7 @@ h6 {
   min-width: 100%;
   position: relative;
   padding: 50px 0;
-  animation: scrollHorizontal 30s linear infinite;
+  animation: scrollHorizontal 8s linear infinite;
 }
 
 @keyframes scrollHorizontal {
