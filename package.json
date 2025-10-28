@@ -2,6 +2,7 @@
   "name": "ceriga-website",
   "version": "1.0.0",
   "description": "CERIGA Website with Contact Form",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "vercel dev",
@@ -10,9 +11,7 @@
   },
   "dependencies": {
     "nodemailer": "^6.9.7",
-    "formidable": "^3.5.1",
-    "fs": "^0.0.1-security",
-    "path": "^0.12.7"
+    "formidable": "^3.5.1"
   },
   "devDependencies": {
     "@vercel/node": "^3.0.0"
