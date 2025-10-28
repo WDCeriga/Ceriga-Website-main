@@ -77,7 +77,8 @@ function createEmailHTML(name, email, subject, country, message) {
 
 async function sendEmail(name, email, subject, country, message, filePath = null) {
   try {
-    const transporter = nodemailer.createTransporter(SMTP_CONFIG);
+    // Initialize Nodemailer transport
+    const transporter = nodemailer.createTransport(SMTP_CONFIG);
     
     const mailOptions = {
       from: process.env.SENDER_EMAIL,
