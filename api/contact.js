@@ -129,6 +129,7 @@ export default async function handler(req, res) {
       maxFileSize: MAX_FILE_SIZE,
       uploadDir: '/tmp', // Vercel's temporary directory
       keepExtensions: true,
+      allowEmptyFiles: true, // Allow empty file uploads
     });
 
     const [fields, files] = await form.parse(req);
@@ -150,7 +151,7 @@ export default async function handler(req, res) {
 
     // Handle file upload
     let filePath = null;
-    if (files.file && files.file[0]) {
+    if (files.file && files.file[0] && files.file[0].size > 0) {
       const file = files.file[0];
 
       if (!allowedFile(file.originalFilename)) {
