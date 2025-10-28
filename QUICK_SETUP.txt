@@ -1,0 +1,33 @@
+═══════════════════════════════════════════════════════════
+  EMAILJS QUICK SETUP - Update These 3 Values in ContactUS.html
+═══════════════════════════════════════════════════════════
+
+1. Go to: https://www.emailjs.com
+2. Sign up and complete the setup
+3. Update these lines in ContactUS.html:
+
+───────────────────────────────────────────────────────────
+LINE 538 - Your Public Key:
+───────────────────────────────────────────────────────────
+emailjs.init("YOUR_PUBLIC_KEY");
+
+Replace YOUR_PUBLIC_KEY with your actual key from:
+Dashboard → Account → General → Public Key
+
+───────────────────────────────────────────────────────────
+LINE 616 - Your Service ID and Template ID:
+───────────────────────────────────────────────────────────
+emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', params)
+
+Replace with your actual IDs from:
+- Service ID: Dashboard → Email Services
+- Template ID: Dashboard → Email Templates
+
+═══════════════════════════════════════════════════════════
+
+EXAMPLE (after setup):
+  Line 538: emailjs.init("AbCdEfGh123456789");
+  Line 616: emailjs.send('service_abc123', 'template_xyz789', params)
+
+See EMAILJS_SETUP_GUIDE.md for detailed instructions.
+

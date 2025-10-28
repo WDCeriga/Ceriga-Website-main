@@ -158,10 +158,8 @@
             </div>
 
             <div class="col-lg-6">
-              <!-- Web3Forms Contact Form -->
-              <form action="https://api.web3forms.com/submit" method="POST" enctype="multipart/form-data" class="contact-form">
-                <input type="hidden" name="access_key" value="b72bb919-a892-4889-badc-9758e10f9668">
-                <input type="hidden" name="redirect" value="thankyou.html">
+              <!-- Custom Backend Contact Form -->
+              <form id="contact-form" class="contact-form" enctype="multipart/form-data">
 
                 <div class="form-group">
                   <label for="name">Name</label>
@@ -388,11 +386,12 @@
                 </div>
 
                   <div class="form-group">
-                    <label for="file-upload">Upload File</label>
-                    <input type="file" id="file-upload" name="file" class="form-control-file" style="display: none;">
+                    <label for="file-upload">Upload File (Optional)</label>
+                    <input type="file" id="file-upload" name="file" class="form-control-file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.zip,.txt" style="display: none;">
                     <div id="custom-file-area" class="custom-file-area">
                       <span id="file-name">Click here to upload a file</span>
                     </div>
+                    <small class="form-text text-muted">Max file size: 10MB. Accepted formats: PDF, DOC, DOCX, JPG, PNG, ZIP, TXT</small>
                   </div>
 
 
@@ -406,7 +405,10 @@
                   <label class="form-check-label" for="terms">I accept the <a href="terms.html">Terms</a></label>
                 </div>
 
-                <button type="submit" class="btn-primary-custom mt-3">Submit</button>
+                <button type="submit" class="btn-primary-custom mt-3">
+                  <span class="submit-text">Submit</span>
+                  <span class="sending-text" style="display:none;">Sending...</span>
+                </button>
               </form>
             </div>
           </div>
@@ -527,80 +529,78 @@
         });
     </script>
 
+    <!-- Custom Backend Integration -->
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const fileUploadInput = document.getElementById("file-upload");
-            const customFileArea = document.getElementById("custom-file-area");
-            const fileNameDisplay = document.getElementById("file-name");
-
-            customFileArea.addEventListener("click", function () {
-                fileUploadInput.click();
-            });
-
-            const label = document.querySelector('label[for="file-upload"]');
-            if (label) {
-                label.addEventListener("click", function (e) {
-                    e.preventDefault();
-                });
-            }
-            fileUploadInput.addEventListener("change", function () {
-                const file = fileUploadInput.files[0];
-                if (file) {
-                    fileNameDisplay.textContent = "Selected File: " + file.name;
-                } else {
-                    fileNameDisplay.textContent = "Click here to upload a file";
-                }
-            });
-        });
-    </script>
-
-
-
-      <script>
       document.addEventListener("DOMContentLoaded", function () {
-          const fileUploadInput = document.getElementById("file-upload");
-          const customFileArea = document.getElementById("custom-file-area");
-          const fileNameDisplay = document.getElementById("file-name");
+        const fileUploadInput = document.getElementById("file-upload");
+        const customFileArea = document.getElementById("custom-file-area");
+        const fileNameDisplay = document.getElementById("file-name");
+        const contactForm = document.getElementById("contact-form");
 
-          // Custom file upload display
-          customFileArea.addEventListener("click", function () {
-              fileUploadInput.click();
+        // Custom file upload UI
+        customFileArea.addEventListener("click", function () {
+          fileUploadInput.click();
+        });
+
+        fileUploadInput.addEventListener("change", function () {
+          const file = fileUploadInput.files[0];
+          if (file) {
+            // Check file size (10MB limit)
+            if (file.size > 10 * 1024 * 1024) {
+              alert("File is too large. Maximum size is 10MB.");
+              fileUploadInput.value = "";
+              fileNameDisplay.textContent = "Click here to upload a file";
+              return;
+            }
+            fileNameDisplay.textContent = "Selected: " + file.name;
+          } else {
+            fileNameDisplay.textContent = "Click here to upload a file";
+          }
+        });
+
+        // Form submission handler
+        contactForm.addEventListener("submit", function(e) {
+          e.preventDefault();
+
+          // Show loading state
+          const submitBtn = this.querySelector('button[type="submit"]');
+          const submitText = submitBtn.querySelector('.submit-text');
+          const sendingText = submitBtn.querySelector('.sending-text');
+          submitText.style.display = 'none';
+          sendingText.style.display = 'inline';
+          submitBtn.disabled = true;
+
+          // Create FormData
+          const formData = new FormData(this);
+
+          // Send to backend
+          fetch('/contact', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              alert('✓ Message sent successfully! We\'ll get back to you soon.');
+              contactForm.reset();
+              fileNameDisplay.textContent = "Click here to upload a file";
+            } else {
+              alert('✗ ' + (data.error || 'Failed to send message. Please try again.'));
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('✗ Failed to send message. Please try again or email us directly at info@ceriga.co');
+          })
+          .finally(() => {
+            // Reset button state
+            submitText.style.display = 'inline';
+            sendingText.style.display = 'none';
+            submitBtn.disabled = false;
           });
-
-          fileUploadInput.addEventListener("change", function () {
-              const file = fileUploadInput.files[0];
-              if (file) {
-                  fileNameDisplay.textContent = "Selected File: " + file.name;
-              } else {
-                  fileNameDisplay.textContent = "Click here to upload a file";
-              }
-          });
-
-          // Form submission
-          document.getElementById("contact-form").addEventListener("submit", async function(e) {
-              e.preventDefault();
-              const formData = new FormData(this);
-
-              try {
-                  const response = await fetch("https://api.web3forms.com/submit", {
-                      method: "POST",
-                      body: formData
-                  });
-                  const result = await response.json();
-                  if(result.success){
-                      alert("Message sent successfully!");
-                      this.reset();
-                      fileNameDisplay.textContent = "Click here to upload a file";
-                  } else {
-                      alert("There was an error. Please try again.");
-                  }
-              } catch (error) {
-                  console.error(error);
-                  alert("There was an error sending the form.");
-              }
-          });
+        });
       });
-      </script>
+    </script>
 
 
 </body>
