@@ -158,7 +158,7 @@
             </div>
 
             <div class="col-lg-6">
-              <!-- Custom Backend Contact Form -->
+              <!-- Vercel Serverless Contact Form -->
               <form id="contact-form" class="contact-form" enctype="multipart/form-data">
 
                 <div class="form-group">
@@ -529,7 +529,7 @@
         });
     </script>
 
-    <!-- Custom Backend Integration -->
+    <!-- Vercel Serverless Integration -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const fileUploadInput = document.getElementById("file-upload");
@@ -573,8 +573,8 @@
           // Create FormData
           const formData = new FormData(this);
 
-          // Send to backend
-          fetch('/contact', {
+          // Send to Vercel API
+          fetch('/api/contact', {
             method: 'POST',
             body: formData
           })
