@@ -10,10 +10,5 @@
       "src": "/(.*)",
       "dest": "/$1"
     }
-  ],
-  "env": {
-    "SENDER_EMAIL": "wdceriga@gmail.com",
-    "SENDER_PASSWORD": "ekvt mdlv cvet sayv",
-    "RECIPIENT_EMAIL": "info@ceriga.co"
-  }
+  ]
 }
