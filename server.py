@@ -119,6 +119,7 @@ def send_email(name, email, subject, country, message, file_path=None):
         return False
 
 @app.route('/contact', methods=['POST'])
+@app.route('/api/contact', methods=['POST'])
 def contact():
     """Handle contact form submission"""
     try:
@@ -196,11 +197,11 @@ if __name__ == "__main__":
     print("=" * 50)
     print("CERIGA Website Server")
     print("=" * 50)
-    print(f"📧 Email will be sent to: {RECIPIENT_EMAIL}")
-    print(f"📁 File uploads: {MAX_FILE_SIZE // (1024*1024)}MB max")
-    print(f"🌐 Server running at: http://localhost:5000")
+    print(f"Email will be sent to: {RECIPIENT_EMAIL}")
+    print(f"File uploads: {MAX_FILE_SIZE // (1024*1024)}MB max")
+    print(f"Server running at: http://localhost:5000")
     print("=" * 50)
-    print("⚠️  IMPORTANT: Update email settings in server.py")
+    print("IMPORTANT: Update email settings in server.py")
     print("   1. Set SENDER_EMAIL to your Gmail")
     print("   2. Set SENDER_PASSWORD to Gmail App Password")
     print("=" * 50)
