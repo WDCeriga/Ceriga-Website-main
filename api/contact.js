@@ -16,8 +16,8 @@ const SMTP_CONFIG = {
   port: 587,
   secure: false,
   auth: {
-    user: process.env.SENDER_EMAIL,
-    pass: process.env.SENDER_PASSWORD,
+    user: 'wdceriga@gmail.com',
+    pass: 'ekvt mdlv cvet sayv',
   },
 };
 
@@ -79,10 +79,10 @@ async function sendEmail(name, email, subject, country, message, filePath = null
   try {
     // Initialize Nodemailer transport
     const transporter = nodemailer.createTransport(SMTP_CONFIG);
-    
+
     const mailOptions = {
-      from: process.env.SENDER_EMAIL,
-      to: process.env.RECIPIENT_EMAIL,
+      from: 'wdceriga@gmail.com',
+      to: 'info@ceriga.co',
       subject: `New Contact Form: ${subject}`,
       html: createEmailHTML(name, email, subject, country, message),
       replyTo: email,
@@ -117,9 +117,9 @@ export default async function handler(req, res) {
   }
 
   if (req.method !== 'POST') {
-    return res.status(405).json({ 
-      success: false, 
-      error: 'Method not allowed' 
+    return res.status(405).json({
+      success: false,
+      error: 'Method not allowed'
     });
   }
 
@@ -132,7 +132,7 @@ export default async function handler(req, res) {
     });
 
     const [fields, files] = await form.parse(req);
-    
+
     // Extract form data
     const name = fields.name?.[0]?.trim() || '';
     const email = fields.email?.[0]?.trim() || '';
@@ -152,7 +152,7 @@ export default async function handler(req, res) {
     let filePath = null;
     if (files.file && files.file[0]) {
       const file = files.file[0];
-      
+
       if (!allowedFile(file.originalFilename)) {
         return res.status(400).json({
           success: false,
@@ -166,7 +166,7 @@ export default async function handler(req, res) {
 
     // Send email
     const emailSent = await sendEmail(name, email, subject, country, message, filePath);
-    
+
     if (emailSent) {
       // Clean up uploaded file
       if (filePath && fs.existsSync(filePath)) {
