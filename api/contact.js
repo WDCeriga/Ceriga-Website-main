@@ -1,7 +1,7 @@
-const nodemailer = require('nodemailer');
-const formidable = require('formidable');
-const fs = require('fs');
-const path = require('path');
+import nodemailer from 'nodemailer';
+import formidable from 'formidable';
+import fs from 'fs';
+import path from 'path';
 
 // Configure Vercel to handle file uploads
 export const config = {
