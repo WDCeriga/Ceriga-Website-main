@@ -20,7 +20,8 @@ CORS(app)
 
 # Configuration
 UPLOAD_FOLDER = 'uploads'
-MAX_FILE_SIZE = 10 * 1024 * 1024  # 10MB
+# Match Vercel serverless function body limit (~4.5MB)
+MAX_FILE_SIZE = int(4.5 * 1024 * 1024)  # 4.5MB
 ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png', 'zip', 'txt'}
 
 # Email configuration

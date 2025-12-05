@@ -22,7 +22,8 @@ const SMTP_CONFIG = {
 };
 
 // File upload configuration
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+// Match Vercel serverless function body limit (~4.5MB)
+const MAX_FILE_SIZE = Math.floor(4.5 * 1024 * 1024); // 4.5MB
 const ALLOWED_EXTENSIONS = ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png', 'zip', 'txt'];
 
 function allowedFile(filename) {

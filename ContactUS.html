@@ -391,7 +391,7 @@
                     <div id="custom-file-area" class="custom-file-area">
                       <span id="file-name">Click here to upload a file</span>
                     </div>
-                    <small class="form-text text-muted">Max file size: 10MB. Accepted formats: PDF, DOC, DOCX, JPG, PNG, ZIP, TXT</small>
+                    <small class="form-text text-muted">Max file size: 4.5MB. Accepted formats: PDF, DOC, DOCX, JPG, PNG, ZIP, TXT</small>
                   </div>
 
 
@@ -545,9 +545,10 @@
         fileUploadInput.addEventListener("change", function () {
           const file = fileUploadInput.files[0];
           if (file) {
-            // Check file size (10MB limit)
-            if (file.size > 10 * 1024 * 1024) {
-              alert("File is too large. Maximum size is 10MB.");
+            // Check file size (4.5MB limit - Vercel)
+            const MAX_CLIENT_FILE_SIZE = Math.floor(4.5 * 1024 * 1024);
+            if (file.size > MAX_CLIENT_FILE_SIZE) {
+              alert("File is too large. Maximum size is 4.5MB.");
               fileUploadInput.value = "";
               fileNameDisplay.textContent = "Click here to upload a file";
               return;
