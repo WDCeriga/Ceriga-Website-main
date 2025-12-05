@@ -123,10 +123,13 @@ export default async function handler(req, res) {
     });
   }
 
+  let filePath = null;
+
   try {
     // Parse form data
     const form = formidable({
       maxFileSize: MAX_FILE_SIZE,
+      minFileSize: 0, // Allow empty files (file is optional)
       uploadDir: '/tmp', // Vercel's temporary directory
       keepExtensions: true,
       allowEmptyFiles: true, // Allow empty file uploads (file is optional)
@@ -134,13 +137,19 @@ export default async function handler(req, res) {
     });
 
     const [fields, files] = await form.parse(req);
+    
+    console.log('Form parsed successfully');
+    console.log('Fields received:', Object.keys(fields));
+    console.log('Files received:', Object.keys(files));
 
-    // Extract form data
-    const name = fields.name?.[0]?.trim() || '';
-    const email = fields.email?.[0]?.trim() || '';
-    const subject = fields.subject?.[0]?.trim() || '';
-    const country = fields.country?.[0]?.trim() || '';
-    const message = fields.message?.[0]?.trim() || '';
+    // Extract form data - handle arrays properly
+    const name = (Array.isArray(fields.name) ? fields.name[0] : fields.name)?.trim() || '';
+    const email = (Array.isArray(fields.email) ? fields.email[0] : fields.email)?.trim() || '';
+    const subject = (Array.isArray(fields.subject) ? fields.subject[0] : fields.subject)?.trim() || '';
+    const country = (Array.isArray(fields.country) ? fields.country[0] : fields.country)?.trim() || '';
+    const message = (Array.isArray(fields.message) ? fields.message[0] : fields.message)?.trim() || '';
+
+    console.log('Extracted values:', { name, email, subject, country, message });
 
     // Validate required fields
     if (!name || !email || !subject || !country || !message) {
@@ -151,22 +160,30 @@ export default async function handler(req, res) {
     }
 
     // Handle file upload (optional)
-    let filePath = null;
-    if (files.file && files.file.length > 0 && files.file[0].size > 0) {
-      const file = files.file[0];
+    if (files.file) {
+      const fileArray = Array.isArray(files.file) ? files.file : [files.file];
+      const file = fileArray[0];
+      
+      if (file && file.size > 0) {
+        // Validate file extension
+        if (file.originalFilename && !allowedFile(file.originalFilename)) {
+          // Clean up file if validation fails
+          if (fs.existsSync(file.filepath)) {
+            fs.unlinkSync(file.filepath);
+          }
+          return res.status(400).json({
+            success: false,
+            error: 'File type not allowed. Accepted formats: PDF, DOC, DOCX, JPG, PNG, ZIP, TXT'
+          });
+        }
 
-      // Validate file extension
-      if (file.originalFilename && !allowedFile(file.originalFilename)) {
-        return res.status(400).json({
-          success: false,
-          error: 'File type not allowed. Accepted formats: PDF, DOC, DOCX, JPG, PNG, ZIP, TXT'
-        });
+        filePath = file.filepath;
+        console.log('File uploaded:', file.originalFilename, 'Size:', file.size);
+      } else {
+        console.log('File field present but empty - proceeding without attachment');
       }
-
-      filePath = file.filepath;
-      console.log('File uploaded:', file.originalFilename);
     } else {
-      console.log('No file attached - file is optional');
+      console.log('No file field in form - proceeding without attachment');
     }
 
     // Send email
@@ -175,8 +192,12 @@ export default async function handler(req, res) {
     if (emailSent) {
       // Clean up uploaded file
       if (filePath && fs.existsSync(filePath)) {
-        fs.unlinkSync(filePath);
-        console.log('File cleaned up:', filePath);
+        try {
+          fs.unlinkSync(filePath);
+          console.log('File cleaned up:', filePath);
+        } catch (cleanupError) {
+          console.error('Error cleaning up file:', cleanupError);
+        }
       }
 
       return res.status(200).json({
@@ -192,9 +213,21 @@ export default async function handler(req, res) {
 
   } catch (error) {
     console.error('Contact form error:', error);
+    console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
+    
+    // Clean up file if it exists
+    if (filePath && fs.existsSync(filePath)) {
+      try {
+        fs.unlinkSync(filePath);
+      } catch (cleanupError) {
+        console.error('Error cleaning up file after error:', cleanupError);
+      }
+    }
+    
     return res.status(500).json({
       success: false,
-      error: 'An error occurred. Please try again.'
+      error: `An error occurred: ${error.message || 'Unknown error'}`
     });
   }
 }
