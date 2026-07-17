@@ -1,6 +1,38 @@
 {
   "version": 2,
   "outputDirectory": ".",
+  "redirects": [
+    {
+      "source": "/AboutUS.html",
+      "destination": "/about-us.html",
+      "permanent": true
+    },
+    {
+      "source": "/aboutus.html",
+      "destination": "/about-us.html",
+      "permanent": true
+    },
+    {
+      "source": "/ContactUS.html",
+      "destination": "/contact-us.html",
+      "permanent": true
+    },
+    {
+      "source": "/Faq.html",
+      "destination": "/faq.html",
+      "permanent": true
+    },
+    {
+      "source": "/Gallery.html",
+      "destination": "/gallery.html",
+      "permanent": true
+    },
+    {
+      "source": "/How-works.html",
+      "destination": "/how-works.html",
+      "permanent": true
+    }
+  ],
   "routes": [
     {
       "src": "/api/(.*)",

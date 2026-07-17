@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
         firstItem = document.createElement("li");
         firstItem.className = "nav-item extra-nav";
         firstItem.innerHTML =
-          '<a class="nav-link" href="./index.html">Home</a>';
+          '<a class="nav-link" href="/">Home</a>';
         navList.insertBefore(firstItem, navList.firstElementChild);
 
         lastItem = document.createElement("div");
@@ -45,9 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
             <div class="mobile-footer-inner">
               <span>© 2025 CERIGA.</span>
               <div class="social-icons">
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-x-twitter"></i></a>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/ceriga.studio/" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                <a href="https://x.com/CerigaStudio" target="_blank" rel="noopener noreferrer"><i class="fab fa-x-twitter"></i></a>
+                <a href="https://www.tiktok.com/@ceriga__" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
               </div>
             </div>
           </div>`;
