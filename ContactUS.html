@@ -76,7 +76,7 @@
             <div class="home-nav-btn nav-btn-hide-show">
               <a
                 class="btn-primary-custom"
-                href="https://studio.ceriga.co/auth/sign-in" target="_blank" rel="noopener noreferrer"
+                href="./ContactUS.html?notice=rebuilding"
                 title="move-link-btn"
                 >Log in</a
               >
@@ -129,7 +129,7 @@
               <li class="nav-item home-nav-btn mobile-view-hide">
                 <a
                   class="btn-primary-custom"
-                  href="https://studio.ceriga.co/auth/sign-in" target="_blank" rel="noopener noreferrer"
+                  href="./ContactUS.html?notice=rebuilding"
                   title="move-link-btn"
                   >Log in</a
                 >
@@ -143,6 +143,15 @@
       <main>
       <section id="Contact-US" class="contact-us">
         <div class="container">
+          <div id="rebuilding-notice" class="rebuilding-notice" role="alert" hidden>
+            <div class="rebuilding-notice__content">
+              <i class="fa-solid fa-screwdriver-wrench" aria-hidden="true"></i>
+              <div>
+                <strong>Studio is currently under rebuilding</strong>
+                <p>Our login portal is temporarily unavailable while we rebuild the studio experience. Please use the form below to get in touch — we&rsquo;ll be happy to help.</p>
+              </div>
+            </div>
+          </div>
           <div class="row justify-content-between">
             <div class="col-lg-5 contact-info">
               <h1 class="contact-heading">Contact Us</h1>
@@ -532,6 +541,14 @@
     <!-- Vercel Serverless Integration -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
+        const rebuildingNotice = document.getElementById("rebuilding-notice");
+        const noticeParam = new URLSearchParams(window.location.search).get("notice");
+
+        if (noticeParam === "rebuilding" && rebuildingNotice) {
+          rebuildingNotice.hidden = false;
+          rebuildingNotice.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
         const fileUploadInput = document.getElementById("file-upload");
         const customFileArea = document.getElementById("custom-file-area");
         const fileNameDisplay = document.getElementById("file-name");

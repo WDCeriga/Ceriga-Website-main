@@ -1850,6 +1850,38 @@ h6 {
 }
 
 /* contact-us page ---------------- */
+.rebuilding-notice {
+  margin-bottom: 2rem;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid var(--color-primary-button);
+  border-radius: 8px;
+  background: var(--color-primary-light);
+  color: var(--color-secondary);
+}
+
+.rebuilding-notice__content {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.rebuilding-notice__content i {
+  color: var(--color-primary-button);
+  font-size: 1.5rem;
+  margin-top: 0.15rem;
+}
+
+.rebuilding-notice__content strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 1.05rem;
+}
+
+.rebuilding-notice__content p {
+  margin: 0;
+  line-height: 1.5;
+}
+
 .contact-us {
   margin-top: 78px;
   padding: 4.92rem 0;
