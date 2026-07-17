@@ -10,11 +10,12 @@
     "start": "echo 'Vercel handles the start'"
   },
   "dependencies": {
-    "nodemailer": "^6.9.7",
-    "formidable": "^3.5.1"
+    "formidable": "^3.5.1",
+    "nodemailer": "^6.9.7"
   },
   "devDependencies": {
-    "@vercel/node": "^3.0.0"
+    "@vercel/node": "^3.0.0",
+    "vercel": "^56.3.1"
   },
   "engines": {
     "node": ">=18.0.0"
