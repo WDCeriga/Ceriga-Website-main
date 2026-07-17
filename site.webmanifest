@@ -1,19 +1,21 @@
 {
   "name": "CERIGA",
   "short_name": "CERIGA",
+  "description": "Premium custom clothing and blank apparel platform for modern brands.",
   "icons": [
     {
-      "src": "/img/faviconn.png",
-      "sizes": "192x192",
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
       "type": "image/png"
     },
     {
-      "src": "/img/faviconn.png",
-      "sizes": "512x512",
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
       "type": "image/png"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#c80f0f"
