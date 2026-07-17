@@ -24,12 +24,15 @@ UPLOAD_FOLDER = 'uploads'
 MAX_FILE_SIZE = int(4.5 * 1024 * 1024)  # 4.5MB
 ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png', 'zip', 'txt'}
 
-# Email configuration
-SMTP_SERVER = "smtp.gmail.com"  # Using Gmail SMTP
-SMTP_PORT = 587
-SENDER_EMAIL = "wdceriga@gmail.com"  # Replace with your Gmail
-SENDER_PASSWORD = "ekvt mdlv cvet sayv"  # Replace with Gmail App Password
-RECIPIENT_EMAIL = "info@ceriga.co"
+# Email configuration (set via environment variables — never commit credentials)
+SMTP_SERVER = os.environ.get('SMTP_HOST', 'smtp.gmail.com')
+SMTP_PORT = int(os.environ.get('SMTP_PORT', '587'))
+SENDER_EMAIL = os.environ.get('SENDER_EMAIL')
+SENDER_PASSWORD = os.environ.get('SENDER_PASSWORD')
+RECIPIENT_EMAIL = os.environ.get('RECIPIENT_EMAIL', 'info@ceriga.co')
+
+def email_is_configured():
+    return bool(SENDER_EMAIL and SENDER_PASSWORD)
 
 # Create upload folder if it doesn't exist
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -39,6 +42,10 @@ def allowed_file(filename):
 
 def send_email(name, email, subject, country, message, file_path=None):
     """Send email with form data and optional file attachment"""
+    if not email_is_configured():
+        logger.error('Email is not configured. Set SENDER_EMAIL and SENDER_PASSWORD environment variables.')
+        return False
+
     try:
         # Create message
         msg = MIMEMultipart()
@@ -202,9 +209,12 @@ if __name__ == "__main__":
     print(f"File uploads: {MAX_FILE_SIZE // (1024*1024)}MB max")
     print(f"Server running at: http://localhost:5000")
     print("=" * 50)
-    print("IMPORTANT: Update email settings in server.py")
-    print("   1. Set SENDER_EMAIL to your Gmail")
-    print("   2. Set SENDER_PASSWORD to Gmail App Password")
+    print("IMPORTANT: Set email environment variables before starting:")
+    print("   SENDER_EMAIL=your.email@gmail.com")
+    print("   SENDER_PASSWORD=your_gmail_app_password")
+    print("   RECIPIENT_EMAIL=info@ceriga.co  (optional)")
+    if not email_is_configured():
+        print("WARNING: SENDER_EMAIL and SENDER_PASSWORD are not set.")
     print("=" * 50)
     
     app.run(host='0.0.0.0', port=5000, debug=True)

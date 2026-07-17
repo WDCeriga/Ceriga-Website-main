@@ -22,12 +22,15 @@ pip install -r requirements.txt
 
 ### 2. Configure Email Settings
 
-**Edit `server.py` lines 29-30:**
+Create a `.env` file in the project root (see `.env.example`):
 
-```python
-SENDER_EMAIL = "your.email@gmail.com"  # Your Gmail address
-SENDER_PASSWORD = "your_app_password"  # Gmail App Password
+```bash
+SENDER_EMAIL=your.email@gmail.com
+SENDER_PASSWORD=your_gmail_app_password
+RECIPIENT_EMAIL=info@ceriga.co
 ```
+
+> **Security:** Never commit `.env` to git. If credentials were previously committed, revoke the old Gmail App Password and create a new one.
 
 **To get Gmail App Password:**
 1. Go to [myaccount.google.com](https://myaccount.google.com)

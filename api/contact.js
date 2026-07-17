@@ -10,16 +10,30 @@ export const config = {
   },
 };
 
-// Email configuration
-const SMTP_CONFIG = {
-  host: 'smtp.gmail.com',
-  port: 587,
-  secure: false,
-  auth: {
-    user: 'wdceriga@gmail.com',
-    pass: 'ekvt mdlv cvet sayv',
-  },
-};
+// Email configuration from environment variables (set in Vercel Dashboard or .env locally)
+function getEmailConfig() {
+  const senderEmail = process.env.SENDER_EMAIL;
+  const senderPassword = process.env.SENDER_PASSWORD;
+  const recipientEmail = process.env.RECIPIENT_EMAIL || 'info@ceriga.co';
+
+  if (!senderEmail || !senderPassword) {
+    return null;
+  }
+
+  return {
+    smtp: {
+      host: process.env.SMTP_HOST || 'smtp.gmail.com',
+      port: Number(process.env.SMTP_PORT || 587),
+      secure: false,
+      auth: {
+        user: senderEmail,
+        pass: senderPassword,
+      },
+    },
+    from: senderEmail,
+    to: recipientEmail,
+  };
+}
 
 // File upload configuration
 // Match Vercel serverless function body limit (~4.5MB)
@@ -78,12 +92,17 @@ function createEmailHTML(name, email, subject, country, message) {
 
 async function sendEmail(name, email, subject, country, message, filePath = null) {
   try {
-    // Initialize Nodemailer transport
-    const transporter = nodemailer.createTransport(SMTP_CONFIG);
+    const emailConfig = getEmailConfig();
+    if (!emailConfig) {
+      console.error('Email is not configured. Set SENDER_EMAIL and SENDER_PASSWORD environment variables.');
+      return false;
+    }
+
+    const transporter = nodemailer.createTransport(emailConfig.smtp);
 
     const mailOptions = {
-      from: 'wdceriga@gmail.com',
-      to: 'info@ceriga.co',
+      from: emailConfig.from,
+      to: emailConfig.to,
       subject: `New Contact Form: ${subject}`,
       html: createEmailHTML(name, email, subject, country, message),
       replyTo: email,

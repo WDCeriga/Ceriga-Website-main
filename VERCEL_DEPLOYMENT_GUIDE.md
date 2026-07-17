@@ -21,10 +21,12 @@ This website uses **Vercel Serverless Functions** for the contact form backend, 
 ### Environment Variables (Set in Vercel Dashboard)
 
 ```
-SENDER_EMAIL=wdceriga@gmail.com
-SENDER_PASSWORD=ekvt mdlv cvet sayv
+SENDER_EMAIL=your-email@gmail.com
+SENDER_PASSWORD=your-gmail-app-password
 RECIPIENT_EMAIL=info@ceriga.co
 ```
+
+> **Security:** Never commit real credentials to git. Add these only in the Vercel Dashboard under **Settings → Environment Variables**. If a password was ever committed to the repository, revoke it in Google Account settings and create a new Gmail App Password.
 
 ### Features
 
@@ -74,8 +76,8 @@ vercel dev
 
 ## 📧 Email Features
 
-- **To**: info@ceriga.co
-- **From**: wdceriga@gmail.com
+- **To**: value of `RECIPIENT_EMAIL` (defaults to info@ceriga.co)
+- **From**: value of `SENDER_EMAIL`
 - **Reply-To**: Sender's email
 - **Subject**: "New Contact Form: [Subject]"
 - **Format**: Professional HTML template
