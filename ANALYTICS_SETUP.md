@@ -33,3 +33,32 @@ Replace `G-XXXXXXXXXX` with your real Measurement ID, then deploy.
 ## 5. Link Search Console (recommended)
 
 In GA4: **Admin → Product links → Search Console links** to connect Google Search Console with Analytics.
+
+## 6. Custom events (automatic)
+
+After consent, the site tracks these GA4 events via `gtag`:
+
+| Event | When it fires |
+|-------|----------------|
+| `navigation_click` | Internal nav links (home, about, gallery, faq, contact, etc.) |
+| `click` | Outbound links — Our Blanks, social, email, phone, external |
+| `navigation_click` (`destination: login`) | Log in links (rebuilding notice) |
+| `navigation_click` (`destination: sign_up`) | Sign Up CTAs |
+| `contact_form_submit` | Contact form submitted |
+| `contact_form_success` | Message sent successfully |
+| `contact_form_error` | Form submission failed |
+| `rebuilding_notice_view` | User lands on contact page with `?notice=rebuilding` |
+| `cookie_consent` | User accepts analytics cookies |
+| `button_click` | Other buttons / elements with `data-track` attribute |
+
+### Manual tracking
+
+Call from any page script (only fires after consent):
+
+```javascript
+window.cerigaTrack('custom_event_name', { key: 'value' });
+```
+
+### View events in GA4
+
+**Reports → Engagement → Events** (allow 24–48h for full reports; use **Realtime** for immediate verification).

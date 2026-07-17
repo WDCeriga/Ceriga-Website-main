@@ -580,6 +580,7 @@
         // Form submission handler
         contactForm.addEventListener("submit", function(e) {
           e.preventDefault();
+          document.dispatchEvent(new CustomEvent('ceriga:contact_submit'));
 
           // Show loading state
           const submitBtn = this.querySelector('button[type="submit"]');
@@ -600,15 +601,22 @@
           .then(response => response.json())
           .then(data => {
             if (data.success) {
+              document.dispatchEvent(new CustomEvent('ceriga:contact_success'));
               alert('✓ Message sent successfully! We\'ll get back to you soon.');
               contactForm.reset();
               fileNameDisplay.textContent = "Click here to upload a file";
             } else {
+              document.dispatchEvent(new CustomEvent('ceriga:contact_error', {
+                detail: { message: data.error || 'Failed to send message' }
+              }));
               alert('✗ ' + (data.error || 'Failed to send message. Please try again.'));
             }
           })
           .catch(error => {
             console.error('Error:', error);
+            document.dispatchEvent(new CustomEvent('ceriga:contact_error', {
+              detail: { message: error.message || 'Network error' }
+            }));
             alert('✗ Failed to send message. Please try again or email us directly at info@ceriga.co');
           })
           .finally(() => {
