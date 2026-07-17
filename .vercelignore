@@ -6,8 +6,6 @@ uploads/
 
 # Development files
 BACKEND_SETUP_GUIDE.md
-EMAILJS_SETUP_GUIDE.md
-QUICK_SETUP.txt
 
 # Node modules (will be installed by Vercel)
 node_modules/

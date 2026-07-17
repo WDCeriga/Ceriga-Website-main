@@ -45,7 +45,22 @@ function allowedFile(filename) {
   return ALLOWED_EXTENSIONS.includes(ext);
 }
 
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 function createEmailHTML(name, email, subject, country, message) {
+  const safeName = escapeHtml(name);
+  const safeEmail = escapeHtml(email);
+  const safeSubject = escapeHtml(subject);
+  const safeCountry = escapeHtml(country);
+  const safeMessage = escapeHtml(message).replace(/\r?\n/g, '<br>');
+
   return `
     <html>
     <body style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -60,23 +75,23 @@ function createEmailHTML(name, email, subject, country, message) {
         <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
           <tr>
             <td style="padding: 12px; border: 1px solid #ddd; background: #f0f0f0; font-weight: bold;">Name</td>
-            <td style="padding: 12px; border: 1px solid #ddd;">${name}</td>
+            <td style="padding: 12px; border: 1px solid #ddd;">${safeName}</td>
           </tr>
           <tr>
             <td style="padding: 12px; border: 1px solid #ddd; background: #f0f0f0; font-weight: bold;">Email</td>
-            <td style="padding: 12px; border: 1px solid #ddd;">${email}</td>
+            <td style="padding: 12px; border: 1px solid #ddd;">${safeEmail}</td>
           </tr>
           <tr>
             <td style="padding: 12px; border: 1px solid #ddd; background: #f0f0f0; font-weight: bold;">Subject</td>
-            <td style="padding: 12px; border: 1px solid #ddd;">${subject}</td>
+            <td style="padding: 12px; border: 1px solid #ddd;">${safeSubject}</td>
           </tr>
           <tr>
             <td style="padding: 12px; border: 1px solid #ddd; background: #f0f0f0; font-weight: bold;">Country</td>
-            <td style="padding: 12px; border: 1px solid #ddd;">${country}</td>
+            <td style="padding: 12px; border: 1px solid #ddd;">${safeCountry}</td>
           </tr>
           <tr>
             <td style="padding: 12px; border: 1px solid #ddd; background: #f0f0f0; font-weight: bold;">Message</td>
-            <td style="padding: 12px; border: 1px solid #ddd;">${message}</td>
+            <td style="padding: 12px; border: 1px solid #ddd;">${safeMessage}</td>
           </tr>
         </table>
       </div>

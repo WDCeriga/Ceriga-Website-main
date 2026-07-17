@@ -2,6 +2,7 @@
 import os
 import smtplib
 import ssl
+import html
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
@@ -51,8 +52,14 @@ def send_email(name, email, subject, country, message, file_path=None):
         msg = MIMEMultipart()
         msg['From'] = SENDER_EMAIL
         msg['To'] = RECIPIENT_EMAIL
-        msg['Subject'] = f"New Contact Form: {subject}"
+        msg['Subject'] = f"New Contact Form: {subject.replace(chr(10), ' ').replace(chr(13), ' ')}"
         msg['Reply-To'] = email
+
+        safe_name = html.escape(name)
+        safe_email = html.escape(email)
+        safe_subject = html.escape(subject)
+        safe_country = html.escape(country)
+        safe_message = html.escape(message).replace('\n', '<br>')
 
         # Create HTML body
         html_body = f"""
@@ -69,23 +76,23 @@ def send_email(name, email, subject, country, message, file_path=None):
                 <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
                     <tr>
                         <td style="padding: 12px; border: 1px solid #ddd; background: #f0f0f0; font-weight: bold;">Name</td>
-                        <td style="padding: 12px; border: 1px solid #ddd;">{name}</td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">{safe_name}</td>
                     </tr>
                     <tr>
                         <td style="padding: 12px; border: 1px solid #ddd; background: #f0f0f0; font-weight: bold;">Email</td>
-                        <td style="padding: 12px; border: 1px solid #ddd;">{email}</td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">{safe_email}</td>
                     </tr>
                     <tr>
                         <td style="padding: 12px; border: 1px solid #ddd; background: #f0f0f0; font-weight: bold;">Subject</td>
-                        <td style="padding: 12px; border: 1px solid #ddd;">{subject}</td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">{safe_subject}</td>
                     </tr>
                     <tr>
                         <td style="padding: 12px; border: 1px solid #ddd; background: #f0f0f0; font-weight: bold;">Country</td>
-                        <td style="padding: 12px; border: 1px solid #ddd;">{country}</td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">{safe_country}</td>
                     </tr>
                     <tr>
                         <td style="padding: 12px; border: 1px solid #ddd; background: #f0f0f0; font-weight: bold;">Message</td>
-                        <td style="padding: 12px; border: 1px solid #ddd;">{message}</td>
+                        <td style="padding: 12px; border: 1px solid #ddd;">{safe_message}</td>
                     </tr>
                 </table>
             </div>

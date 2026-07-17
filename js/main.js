@@ -1,9 +1,13 @@
 // navbar set for mobile and toggle --------------
 document.addEventListener("DOMContentLoaded", function () {
   const toggler = document.querySelector(".navbar-toggler");
+  if (!toggler) return;
+
   const topBar = toggler.querySelector(".top");
   const bottomBar = toggler.querySelector(".bottom");
   const navList = document.querySelector("#mainNavbar .navbar-nav");
+
+  if (!topBar || !bottomBar || !navList) return;
 
   let menuOpen = false;
   let firstItem, lastItem;
@@ -71,6 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
   questions.forEach((btn) => {
     btn.addEventListener("click", () => {
       const answer = btn.nextElementSibling;
+      if (!answer) return;
 
       btn.classList.toggle("active");
 
@@ -83,11 +88,10 @@ document.addEventListener("DOMContentLoaded", () => {
       questions.forEach((other) => {
         if (other !== btn) {
           other.classList.remove("active");
-          other.nextElementSibling.style.maxHeight = null;
+          const otherAnswer = other.nextElementSibling;
+          if (otherAnswer) otherAnswer.style.maxHeight = null;
         }
       });
     });
   });
 });
-
-
